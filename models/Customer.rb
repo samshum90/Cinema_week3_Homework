@@ -39,6 +39,16 @@ def update()
   SqlRunner.run(sql, values)
 end
 
+def get_film()
+  sql = 'SELECT films.* FROM films
+  INNER JOIN tickets
+  ON film_id = tickets.film_id
+  WHERE customer_id = $1'
+  values = [@id]
+  film = SqlRunner.run(sql, values)
+  result = film.map {|film| Film.new(film)}
+  return result
+end
 
   def self.delete_all()
     sql = 'DELETE FROM customers'

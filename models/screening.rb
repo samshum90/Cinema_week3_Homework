@@ -40,6 +40,14 @@ attr_accessor :film_id, :start_time, :max_seats, :price
     SqlRunner.run(sql, values)
   end
 
+  def self.find(id)
+    sql = "SELECT * FROM screenings
+    WHERE id = $1"
+    values = [id]
+    screening = SqlRunner.run(sql, values)
+    return screening.map {|screening|Screening.new(screening)}
+  end
+
   def ticket_sold
     @max_seats -= 1 if tickets_available?
   end

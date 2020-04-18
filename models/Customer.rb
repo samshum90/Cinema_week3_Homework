@@ -54,33 +54,6 @@ def get_film()
   return result
 end
 
-# def buy_ticket()
-#   # sql = "SELECT SUM(films.price) FROM films
-#   # INNER JOIN tickets
-#   # ON screening_id = tickets.screening_id
-#   # INNER JOIN screenings
-#   # ON film_id = screenings.film_id
-#   #        WHERE customer_id = $1"
-#   # values = [@id]
-#   # price = SqlRunner.run(sql, values).first['sum'].to_i
-#   # payment = @funds.to_i - price
-#   # return payment
-#
-#   # sql = 'SELECT DISTINCT films.* FROM films
-#   # INNER JOIN tickets
-#   # ON screening_id = tickets.screening_id
-#   # INNER JOIN screenings
-#   # ON film_id = screenings.film_id
-#   # WHERE customer_id = $1'
-#   # values = [@id]
-#   # film = SqlRunner.run(sql, values)
-#   # sum = film.map {|film| Film.new(film)}
-#   # result = sum.reduce(0) {|total, price| total + price}
-#   # # return result
-#   # @funds = @funds - total
-#   # update()
-# end
-
 def buy_ticket(screening)
    return nil if !(can_afford?(screening.price) && screening.tickets_available?)
    spend_money(screening.price)
@@ -107,8 +80,6 @@ def buy_ticket(screening)
     results = tickets.map{|ticket|Ticket.new(ticket)}
     return results.length
   end
-
-
 
   def self.delete_all()
     sql = 'DELETE FROM customers'

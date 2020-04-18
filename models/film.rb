@@ -53,8 +53,8 @@ attr_accessor :title
     FROM tickets
     WHERE screening_id
     IN
-    (SELECT       id
-      FROM     screenings
+    (SELECT id
+      FROM screenings
       WHERE film_id = $1)
     GROUP BY screening_id
     ORDER BY COUNT(screening_id) DESC
